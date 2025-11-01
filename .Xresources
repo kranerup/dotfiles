@@ -1,0 +1,16 @@
+Xcursor.theme: redglass
+URxvt.perl-ext-common: osc52,-selection,font-size,fullscreen
+URxvt*keysym.F11: perl:fullscreen:switch
+
+!URxvt.cursorBlink: true
+URxvt.cursorUnderline:   false
+URxvt.cursorBlink:       false
+URxvt.cursorColor:       #cccccc
+URxvt.cursorColor2:      #000000
+URxvt.reverseVideo:      false
+
+
+! Force cursor size for urxvt
+URxvt*pointerShape: left_ptr
+!URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=50
+URxvt.font: xft:BitstromWera Nerd Font Mono:pixelsize=50. 
