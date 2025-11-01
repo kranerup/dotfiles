@@ -134,4 +134,4 @@ esac
 
 # <<< juliaup initialize <<<
 #
-alias dotfiles='/usr/bin/git --git-dir=/home/kenny/.dotfiles/ --work-tree=/home/kenny'
+alias dotfiles='/usr/bin/git --git-dir=/home/kenny/.dotfiles/.git --work-tree=/home/kenny'
