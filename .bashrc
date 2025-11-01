@@ -134,4 +134,10 @@ esac
 
 # <<< juliaup initialize <<<
 #
+# ------------------------------------------------------
+# Manage various dot files in a github repo
+# dotfiles status
+# dotfiles add .bashrc
+# dotfiles commit -m 'added alias'
+# dotfiles push
 alias dotfiles='/usr/bin/git --git-dir=/home/kenny/.dotfiles/.git --work-tree=/home/kenny'
