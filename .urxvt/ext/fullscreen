@@ -1,0 +1,16 @@
+sub on_user_command {
+    my ($self, $cmd) = @_;
+    if ($cmd eq "fullscreen:switch") {
+        # Check current fullscreen state
+        my $state = `wmctrl -l -G | grep \$(xdotool getactivewindow)`;
+        my $is_fullscreen = `xprop -id \$(xdotool getactivewindow) _NET_WM_STATE | grep FULLSCREEN`;
+        
+        if ($is_fullscreen) {
+            # Exit fullscreen and remove above
+            `wmctrl -r :ACTIVE: -b remove,fullscreen`;
+        } else {
+            # Enter fullscreen with above
+            `wmctrl -r :ACTIVE: -b add,fullscreen`;
+        }
+    }
+}

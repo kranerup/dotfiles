@@ -1,0 +1,28 @@
+#! perl
+# ~/.urxvt/ext/osc52
+# Minimal OSC52 clipboard support
+#
+BEGIN { warn "clipboard extension loaded\n"; }
+
+sub on_osc_seq {
+    my ($term, $op, $data) = @_;
+    return 0 unless $op eq 52;   # only OSC52
+
+    #warn "got osc52";
+    my ($sel, $b64) = split /;/, $data, 2;
+    $b64 =~ s/^\s*c;//;  # strip extra c;
+
+    my $decoded = '';
+    eval {
+        require MIME::Base64;
+        $decoded = MIME::Base64::decode($b64);
+    };
+
+    $term->selection($decoded, 1);   # store to PRIMARY + CLIPBOARD
+    $term->selection($decoded, 0);   # store to PRIMARY + CLIPBOARD
+    #warn "set selection: <$decoded>\n";
+    $term->selection_grab(urxvt::CurrentTime, 1);
+    $term->selection_grab(urxvt::CurrentTime, 0);
+
+    return 1;
+}
