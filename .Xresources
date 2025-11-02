@@ -9,8 +9,15 @@ URxvt.cursorColor:       #cccccc
 URxvt.cursorColor2:      #000000
 URxvt.reverseVideo:      false
 
+urxvt.scrollBar: False
 
 ! Force cursor size for urxvt
 URxvt*pointerShape: left_ptr
 !URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=50
 URxvt.font: xft:BitstromWera Nerd Font Mono:pixelsize=50. 
+
+#urxvt.font: -misc-fixed-medium-r-normal--14-110-*-*-*-*-iso8859-*
+#urxvt.*boldFont: -misc-fixed-medium-r-normal--14-110-*-*-*-*-iso8859-*
+
+xterm.dynamiColors: true
+
