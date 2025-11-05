@@ -18,7 +18,7 @@ return {
         sumiInk0 = "#161616", -- modified
         sumiInk1 = "#181818", -- modified
         sumiInk2 = "#1a1a1a", -- modified
-        sumiInk3 = "#1F1F1F", -- modified
+        sumiInk3 = "#000000", -- #1F1F1F", -- modified
         sumiInk4 = "#2A2A2A", -- modified
         sumiInk5 = "#363636", -- modified
         sumiInk6 = "#545454", -- modified
@@ -86,6 +86,9 @@ return {
       autocmd ColorScheme * hi NormalFloat guifg=#F9E7C0 guibg=#1F1F1F
       autocmd ColorScheme * hi FloatBorder guifg=#F9E7C0 guibg=#1F1F1F
     ]])
+
+    -- Cursor etc that unexplicably differs
+    vim.api.nvim_set_hl(0, 'Cursor', { bg = '#000000' })
   end
 }
 

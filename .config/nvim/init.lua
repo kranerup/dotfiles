@@ -41,3 +41,4 @@ require("cmp").setup.filetype("lisp", {
 require("core.options")
 require("core.keymaps")
 
+require('less-mode').setup()

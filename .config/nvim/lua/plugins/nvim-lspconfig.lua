@@ -30,16 +30,17 @@ return {
     require('mason-lspconfig').setup({
       -- Install these LSPs automatically
       ensure_installed = {
-        'bashls',
-        'cssls',
-        'html',
-        'lua_ls',
-        'jsonls',
-        'lemminx',
-        'marksman',
-        'quick_lint_js',
-        'yamlls',
-        'pyright',
+        'clangd',
+        --'bashls',
+        --'cssls',
+        --'html',
+        --'lua_ls',
+        --'jsonls',
+        --'lemminx',
+        --'marksman',
+        --'quick_lint_js',
+        --'yamlls',
+        --'pyright',
       },
       automatic_installation = true,
     })
@@ -47,12 +48,12 @@ return {
     require('mason-tool-installer').setup({
       -- Install these linters, formatters, debuggers automatically
       ensure_installed = {
-        'black',
-        'debugpy',
-        'flake8',
-        'isort',
-        'mypy',
-        'pylint',
+        --'black',
+        --'debugpy',
+        --'flake8',
+        --'isort',
+        --'mypy',
+        --'pylint',
       },
     })
 
