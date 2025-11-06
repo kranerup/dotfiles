@@ -363,9 +363,15 @@ esac
 # ------------------------------------------------------
 # Manage various dot files in a github repo
 # dotfiles status
-# dotfiles add .bashrc
+# dotfiles add .bashrc 
 # dotfiles commit -m 'added alias'
 # dotfiles push
+# 
+# To start on a new computer:
+# git clone git@github.com:kranerup/dotfiles.git .dotfiles
+# dotfiles config --worktree status.showUntrackedFiles no
+#
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'
+
 #-----------------------------------------------------
 export QSYS_ROOTDIR="/opt/quartus/quartus_24.3_pro/qsys/bin"
