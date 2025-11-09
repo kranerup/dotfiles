@@ -10,7 +10,10 @@ URxvt.cursorColor2:      #000000
 URxvt.reverseVideo:      false
 
 urxvt.scrollBar: False
-URxvt.borderLess: true
+URxvt.borderLess: false
+URxvt.override-redirect: false
+
+
 
 ! Force cursor size for urxvt
 URxvt*pointerShape: left_ptr
