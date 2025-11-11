@@ -7,10 +7,4 @@ opt prompt '((:MAGENTA "L %u")
 alias ll "/bin/ls --color=auto -lt"
 alias le "nvim +LessMode"
 
-(theme:set-theme-items theme:*theme*
- '((:syntax :docstring :style) (:bg-blue :fg-cyan)
-   (:syntax :docstring :code :style) (:bg-blue :fg-cyan)))
-
-;; '((:program :empty-line-indicator :character) #\~
-;;   (:program :modeline :style)                 (:bg-blue :fg-cyan)
-;;   (:program :search-match :style)             (:red :underline)))
+(theme-default:set-theme-defaults-for-light-bg theme:*theme*)
