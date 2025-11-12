@@ -3,8 +3,10 @@ opt prompt '((:MAGENTA "L %u")
              (:CYAN "%h") " "
              (:BLUE "%w")
              (:RED "%$") " ")
+(theme-default:set-theme-defaults-for-light-bg theme:*theme*)
 
 alias ll "/bin/ls --color=auto -lt"
-alias le "nvim +LessMode"
+undefcommand l ;; alias conflicts with builtin
+alias l "nvim --cmd \"let g:lessmode=1\" +LessMode"
+alias dotfiles "/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME"
 
-(theme-default:set-theme-defaults-for-light-bg theme:*theme*)

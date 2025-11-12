@@ -36,7 +36,8 @@ case "$-" in
       alias ll="ls -lt --color=auto"
       alias ls="ls --color=auto"
       #function l { DISPLAY= nvim -R -X --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' "$@" ; }
-      function l { DISPLAY= nvim +LessMode "$@" ; }
+      function l { DISPLAY= nvim --cmd "let g:lessmode=1" +LessMode "$@" ; }
+
       alias ipy='tmux split-window "source $w/tools/tool-config.sh;ipython"'
       alias tmux='TERM=xterm-256color tmux'
       

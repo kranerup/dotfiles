@@ -1,4 +1,3 @@
-
 vim.autochdir = true
 vim.g.lisp_rainbow = 1
 vim.g.paredit_mode = 0
@@ -6,7 +5,6 @@ vim.g.slimv_clhs_root = "file:/usr/share/doc/hyperspec/Body/"
 vim.g.slimv_browser_cmd = "tmux new-window w3m"
 vim.g.slimv_lisp = 'ros run'
 vim.g.slimv_impl = 'sbcl'
-
 
 -- Bootstrap lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -23,7 +21,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- This has to be set before initializing lazy
-vim.g.mapleader = " "
+if vim.g.lessmode then
+  vim.g.mapleader = ","
+else
+  vim.g.mapleader = " "
+end
+
 
 -- Initialize lazy with dynamic loading of anything in the plugins directory
 require("lazy").setup("plugins", {
@@ -40,5 +43,6 @@ require("cmp").setup.filetype("lisp", {
 -- These modules are not loaded by lazy
 require("core.options")
 require("core.keymaps")
+
 
 require('less-mode').setup()

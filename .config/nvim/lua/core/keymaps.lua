@@ -1,5 +1,7 @@
--- Set leader key to space
-vim.g.mapleader = " "
+-- Set leader key to space except in less mode
+if not(vim.g.lessmode) then
+  vim.g.mapleader = " "
+end
 
 local keymap = vim.keymap
 
@@ -122,9 +124,9 @@ end)
 
 
 -- iron also has a list of commands, see :h iron-commands for all available commands
-keymap.set('n', '<space>rf', '<cmd>IronFocus<cr>')
-keymap.set('n', '<space>rh', '<cmd>IronHide<cr>')
-keymap.set('t', '<esc>', [[<C-\><C-n>]])
+--keymap.set('n', '<space>rf', '<cmd>IronFocus<cr>')
+--keymap.set('n', '<space>rh', '<cmd>IronHide<cr>')
+--keymap.set('t', '<esc>', [[<C-\><C-n>]])
 
 -- my custom mappings ---
 -- * search doesn't jump
