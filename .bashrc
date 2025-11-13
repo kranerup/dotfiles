@@ -40,15 +40,17 @@ case "$-" in
 
       alias ipy='tmux split-window "source $w/tools/tool-config.sh;ipython"'
       alias tmux='TERM=xterm-256color tmux'
-      
-      function xdot { (export DISPLAY=$(cat  ~/.display_ssh); /usr/bin/xdot $*) }
-      function gitk { (export DISPLAY=$(cat  ~/.display_ssh); /usr/bin/gitk $*) }
-      function gnuplot { (export DISPLAY=$(cat  ~/.display_ssh); /usr/bin/gnuplot $*) }
-      function gtkwave { (export DISPLAY=$(cat  ~/.display_ssh); /usr/local/bin/gtkwave $*) }
-      function evince { (export DISPLAY=$(cat  ~/.display_ssh); /usr/bin/evince $*) }
+
+      function get_display { if [[ -e $HOME/.display_ssh ]]; then cat $HOME/.display_ssh; else echo $DISPLAY; fi }
+      function export_disp { export DISPLAY=$(get_display); } 
+      function xdot    { (export_disp; /usr/bin/xdot $*) }
+      function gitk    { (export_disp; /usr/bin/gitk $*) }
+      function gnuplot { (export_disp; /usr/bin/gnuplot $*) }
+      function gtkwave { (export_disp; /usr/local/bin/gtkwave $*) }
+      function evince  { (export_disp; /usr/bin/evince $*) }
 
       function notify { tmux new-window 'whiptail --msgbox "DONE" 7 9'; }
-      function withx { (export DISPLAY=$(cat ~/.display_ssh); $*) }
+      function withx { (export_disp; $*) }
       function withtools { (source $w/tools/tool-config.sh; $*;) }
       function tssh { ssh -R/tmp/tmux-$UID/default:/tmp/tmux-${UID}/default $*; }
       # the job run.log file
