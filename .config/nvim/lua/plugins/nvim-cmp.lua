@@ -46,7 +46,7 @@ return {
         ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- scroll backward
         ['<C-f>'] = cmp.mapping.scroll_docs(4), -- scroll forward
         ['<C-Space>'] = cmp.mapping.complete {}, -- show completion suggestions
-        [','] = cmp.mapping.confirm {
+        ['<Tab><Tab>'] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
         },
