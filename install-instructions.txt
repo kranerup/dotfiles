@@ -28,3 +28,8 @@ sudo apt install -y curl
 curl -O https://beta.quicklisp.org/quicklisp.lisp
 sbcl --load quicklisp.lisp
 
+# Regolith stuff
+sudo apt install -y i3xrocks-battery
+sudo apt install -y i3xrocks-rofication
+regolith-look refresh
+sudo apt install lxqt-policykit
