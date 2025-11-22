@@ -1,0 +1,30 @@
+
+sudo apt install -y easyeffects
+sudo apt install -y rxvt-unicode
+sudo apt install -y vim-nox
+sudo apt install -y ripgrep
+sudo apt install -y clang clangd gcc
+sudo apt install -y tmux
+
+
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/BitstreamVeraSansMono.zip
+unzip -d nerdfont BitstreamVeraSansMono.zip 
+mkdir .local/share/fonts
+mv nerdfont/* .local/share/fonts
+fc-cache -fv
+
+
+wget https://github.com/neovim/neovim/releases/download/v0.11.5/nvim-linux-x86_64.appimage
+mkdir ~/bin
+mv nvim-linux-x86_64.appimage ~/bin/nvim
+chmod a+x ~/bin/nvim
+nvim
+
+sudo update-alternatives --config x-terminal-emulator
+
+
+sudo apt install -y sbcl sbcl-doc sbcl-source
+sudo apt install -y curl
+curl -O https://beta.quicklisp.org/quicklisp.lisp
+sbcl --load quicklisp.lisp
+
