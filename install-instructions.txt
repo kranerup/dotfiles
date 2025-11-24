@@ -35,3 +35,7 @@ regolith-look refresh
 sudo apt install lxqt-policykit
 sudo apt remove regolith-wm-navigation
 sudo apt remove regolith-wm-workspace-config
+
+sudo apt install xsecurelock
+add to /etc/pam.d/common-auth: auth sufficient pam_fprintd.so 
+
