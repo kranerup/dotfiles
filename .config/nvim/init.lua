@@ -5,6 +5,8 @@ vim.g.slimv_clhs_root = "file:/usr/share/doc/hyperspec/Body/"
 vim.g.slimv_browser_cmd = "tmux new-window w3m"
 vim.g.slimv_lisp = 'ros run'
 vim.g.slimv_impl = 'sbcl'
+vim.opt.clipboard:append("unnamedplus")
+
 
 -- Bootstrap lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
