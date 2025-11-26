@@ -39,3 +39,4 @@ sudo apt remove regolith-wm-workspace-config
 sudo apt install xsecurelock
 add to /etc/pam.d/common-auth: auth sufficient pam_fprintd.so 
 
+sudo apt install -y python3-pynvim
