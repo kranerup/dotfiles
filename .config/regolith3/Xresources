@@ -1,12 +1,11 @@
 !regolith.look.path: /usr/share/regolith-look/lascaille
 regolith.look.path: /usr/share/regolith-look/lascaille
 i3xrocks.value.font:    BitstreamVeraSansMono Nerd Font 20
-wm.bar.font:    BitstreamVeraSansMono Nerd Font 30
-gtk.monospace_font_name:	BitstreamVeraSansMono Nerd Font 20
-gtk.document_font_name: Sans 20
+wm.bar.font:    BitstreamVeraSansMono Nerd Font 25
+!gtk.monospace_font_name:	BitstreamVeraSansMono Nerd Font 20
+!gtk.document_font_name: Sans 40
 !gtk.font_name:  Bitstream Vera Sans 20
-wm.program.lock: XSECURELOCK_FONT="xft:BitstromWera Nerd Font Mono:pixelsize=30" xsecurelock
+!gtk.font_name: Sans 20
 
-
-
-
+!wm.program.lock: XSECURELOCK_FONT="xft:BitstromWera Nerd Font Mono:pixelsize=30" xsecurelock
+vm.program.lock: dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
