@@ -287,6 +287,9 @@ unset color_prompt force_color_prompt
       function sd30s  { ssh -t sd30  "cd $PWD; bash -l" ; }
       function sd31s  { ssh -t sd31  "cd $PWD; bash -l" ; }
 
+      if [[ $HOSTNAME = "kenny-ThinkPad-X1-Extreme-Gen-5" ]]; then
+        function sd28 { ssh -p 27108 packetarc.se ; }
+      fi
 
       function diff_rtl {
         d1=$1
