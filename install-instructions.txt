@@ -19,6 +19,7 @@ mkdir ~/bin
 mv nvim-linux-x86_64.appimage ~/bin/nvim
 chmod a+x ~/bin/nvim
 nvim
+sudo apt install -y python3-pynvim
 
 sudo update-alternatives --config x-terminal-emulator
 
@@ -28,15 +29,22 @@ sudo apt install -y curl
 curl -O https://beta.quicklisp.org/quicklisp.lisp
 sbcl --load quicklisp.lisp
 
-# Regolith stuff
+# -- Regolith stuff ------------------------
 sudo apt install -y i3xrocks-battery
 sudo apt install -y i3xrocks-rofication
 regolith-look refresh
 sudo apt install lxqt-policykit
 sudo apt remove regolith-wm-navigation
 sudo apt remove regolith-wm-workspace-config
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
 
 sudo apt install xsecurelock
 add to /etc/pam.d/common-auth: auth sufficient pam_fprintd.so 
+# ------------------------------------------
 
-sudo apt install -y python3-pynvim
+git clone https://codeberg.org/nibbula/yew.git
+cd yew/lish
+sh build.sh
+
+https://roswell.github.io/Installation.html
+snap install evince
