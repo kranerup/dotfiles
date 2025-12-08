@@ -320,8 +320,8 @@ unset color_prompt force_color_prompt
       function nitesum { (cd $pnightly; ./tools/list_status.py --summary regression/nightly); }
       function niterunning { (cd $pnightly; ./tools/list_status.py --running regression/nightly); }
 
-      function lropsum { (cd $w; ./tools/list_status.py --summary regression/run_on_push ); }
-      function lroprunning { (cd $w; ./tools/list_status.py --running regression/run_on_push); }
+      function lropsum { (cd $w; ./tools/list_status.py --summary regression/rop_long ); }
+      function lroprunning { (cd $w; ./tools/list_status.py --running regression/rop_long); }
       function lnitesum { (cd $w; ./tools/list_status.py --summary regression/nightly); }
       function lniterunning { (cd $w; ./tools/list_status.py --running regression/nightly); }
 
