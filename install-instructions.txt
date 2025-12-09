@@ -48,3 +48,4 @@ sh build.sh
 
 https://roswell.github.io/Installation.html
 snap install evince
+sudo apt install -y wmctrl
