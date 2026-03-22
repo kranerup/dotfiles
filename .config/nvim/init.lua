@@ -1,3 +1,18 @@
+-- Prerequisites:
+-- sudo apt install npm
+-- npm config set prefix ~/.npm-global
+-- mkdir -p ~/.npm-global
+-- npm install -g tree-sitter-cli
+-- echo "prefix=~/.npm-global" >> ~/.npmrc
+-- export PATH="$HOME/.npm-global/bin:$PATH"
+--
+-- sudo apt install -y fzf
+-- sudo apt install -y golang
+-- sudo apt install -y python3.12-venv
+--
+-- pip install --user --break-system-packages pynvim
+-- 
+
 vim.opt.termguicolors = true
 
 
@@ -527,14 +542,15 @@ require("kanagawa").setup({
 
 vim.cmd.colorscheme("kanagawa")
 
---vim.cmd.colorscheme("habamax")
---vim.opt.background = "dark"
 vim.api.nvim_create_autocmd("UIEnter", {
   once = true,
   callback = function()
     vim.opt.background = "dark"
-    -- vim.cmd.colorscheme("habamax")
     vim.cmd.colorscheme("kanagawa")
+    vim.cmd([[
+      hi StatusLine    guifg=#000000 guibg=#C8C093
+      hi StatusLineNC  guifg=#000000 guibg=#606060
+    ]])
   end,
 })
 
