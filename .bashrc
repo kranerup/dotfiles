@@ -38,7 +38,18 @@ case "$-" in
       alias ll="ls -lt --color=auto"
       alias ls="ls --color=auto"
       #function l { DISPLAY= nvim -R -X --cmd 'let no_plugin_maps = 1' -c 'runtime! macros/less.vim' "$@" ; }
-      function l { DISPLAY= nvim --cmd "let g:lessmode=1" +LessMode "$@" ; }
+      #function l { DISPLAY= nvim --cmd "let g:lessmode=1" +LessMode "$@" ; }
+      function l { 
+        if [[ "$1" =~ \.(c|h|cpp|py|pac|pah|lisp|sh)$ ]]; then
+          DISPLAY= nvim --cmd "let g:lessmode=1" +LessMode "$@"
+        elif [[ "$1" =~ \.zst$ ]]; then
+          DISPLAY= zstdless $1
+        elif [[ "$1" =~ \.gz$ ]]; then
+          DISPLAY= zless $1
+        else
+          DISPLAY= less $1
+        fi
+      }
 
       alias ipy='tmux split-window "source $w/tools/tool-config.sh;ipython"'
       alias tmux='TERM=xterm-256color tmux'
@@ -253,6 +264,14 @@ unset color_prompt force_color_prompt
       function sd29  { ssh -t sd29  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
       function sd30  { ssh -t sd30  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
       function sd31  { ssh -t sd31  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
+      function sd32  { ssh -t sd32  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
+      function sd33  { ssh -t sd33  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
+      function sd34  { ssh -t sd34  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
+      function sd35  { ssh -t sd35  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
+      function sd36  { ssh -t sd36  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
+      function sd37  { ssh -t sd37  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
+      function sd38  { ssh -t sd38  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
+      function sd39  { ssh -t sd39  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
 
       function sd19x  { ssh -X sd19  exec $SHELL -i -l -c "'cd $PWD; chpwd;  $*'" ; }
 
@@ -288,6 +307,14 @@ unset color_prompt force_color_prompt
       function sd29s  { ssh -t sd29  "cd $PWD; bash -l" ; }
       function sd30s  { ssh -t sd30  "cd $PWD; bash -l" ; }
       function sd31s  { ssh -t sd31  "cd $PWD; bash -l" ; }
+      function sd32s  { ssh -t sd32  "cd $PWD; bash -l" ; }
+      function sd33s  { ssh -t sd33  "cd $PWD; bash -l" ; }
+      function sd34s  { ssh -t sd34  "cd $PWD; bash -l" ; }
+      function sd35s  { ssh -t sd35  "cd $PWD; bash -l" ; }
+      function sd36s  { ssh -t sd36  "cd $PWD; bash -l" ; }
+      function sd37s  { ssh -t sd37  "cd $PWD; bash -l" ; }
+      function sd38s  { ssh -t sd38  "cd $PWD; bash -l" ; }
+      function sd39s  { ssh -t sd39  "cd $PWD; bash -l" ; }
 
       if [[ $HOSTNAME = "kenny-ThinkPad-X1-Extreme-Gen-5" ]]; then
         function sd28 { ssh -p 27108 packetarc.se ; }
@@ -314,6 +341,7 @@ unset color_prompt force_color_prompt
       export propl=/home/files6/regressions/rop_long/rundir
       export parch=/home/users/archive/deliveries
       export pflex=/home/users/flexcron/flexcron
+      export phome=/home/files5/kenny
 
       function ropsum { (cd $prop; ./tools/list_status.py --summary regression/run_on_push ); }
       function roprunning { (cd $prop; ./tools/list_status.py --running regression/run_on_push); }
@@ -340,6 +368,13 @@ unset color_prompt force_color_prompt
         fi
       }
 
+
+      function memtop {
+        date=`date +'%Y-%m-%d:%H:%M'`
+        echo "------------ $date --------------------------------"
+        ps ux |head -1
+        ps auxw --sort rss | tail -n 7 | tac
+      }
       # blinking bar cursor
       #echo -e -n "\x1b[\x35 q"
       ;;
