@@ -10,3 +10,11 @@ undefcommand l ;; alias conflicts with builtin
 alias l "nvim --cmd \"let g:lessmode=1\" +LessMode"
 alias dotfiles "/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME"
 
+(defcommand pgrepm
+    (("pattern" string :optional nil :help "match pattern for process"))
+    "Like pgrep but report memory usage and command line."
+    (let* ((pid (!@ "pgrep " pattern))
+           (pids (mapcar #'(lambda (s) (concatenate 'string " -p " s)) pid))
+           (pidarg (apply 'concatenate 'string pids)))
+          (shell-eval (shell-expand
+                        (concatenate 'string "/bin/ps -o \"pid,rss,vsz,command\" " pidarg)))))
