@@ -11,7 +11,16 @@
 -- sudo apt install -y python3.12-venv
 --
 -- pip install --user --break-system-packages pynvim
--- 
+--
+--
+-- This has to be set before initializing any modules
+--
+if vim.g.lessmode then
+  vim.g.mapleader = ","
+else
+  vim.g.mapleader = " "
+end
+
 
 vim.opt.termguicolors = true
 
@@ -273,7 +282,7 @@ setup_dynamic_statusline()
 -- ============================================================================
 -- KEYMAPS
 -- ============================================================================
-vim.g.mapleader = " " -- space for leader
+--vim.g.mapleader = " " -- space for leader
 vim.g.maplocalleader = " " -- space for localleader
 
 -- better movement in wrapped text
@@ -516,7 +525,8 @@ require("kanagawa").setup({
 
             -- Foreground and Comments
             oldWhite = "#C8C093",
-            fujiWhite = "#F9E7C0", -- modified
+            --fujiWhite = "#F9E7C0", -- modified
+            fujiWhite = "#FFFFFF", -- modified
             fujiGray = "#727169",
             oniViolet = "#BFA3E6", -- modified
             oniViolet2 = "#BCACDB", -- modified
@@ -1034,3 +1044,18 @@ vim.keymap.set("t", "<Esc>", function()
 		terminal_state.is_open = false
 	end
 end, { noremap = true, silent = true, desc = "Close floating terminal" })
+
+
+-- ============================================================================
+-- My own customizations
+-- ============================================================================
+require('less-mode').setup()
+
+-- for slimv repl
+vim.g.lisp_rainbow = 1
+vim.g.paredit_mode = 0
+vim.g.slimv_clhs_root = "file:/usr/share/doc/hyperspec/Body/"
+vim.g.slimv_browser_cmd = "tmux new-window w3m"
+vim.g.slimv_lisp = 'ros run'
+vim.g.slimv_impl = 'sbcl'
+
