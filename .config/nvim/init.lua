@@ -1059,3 +1059,11 @@ vim.g.slimv_browser_cmd = "tmux new-window w3m"
 vim.g.slimv_lisp = 'ros run'
 vim.g.slimv_impl = 'sbcl'
 
+vim.api.nvim_create_autocmd("VimLeave", {
+  callback = function()
+    vim.opt.guicursor = ""
+    -- io.write("\27[1 q")  -- reset to terminal default cursor
+    io.write("\27]12;#cccccc\27\\")  -- match your Xresources cursorColor
+    io.flush()
+  end,
+})
