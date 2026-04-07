@@ -55,7 +55,7 @@ vim.opt.number = true -- line number
 vim.opt.relativenumber = false -- relative line numbers
 vim.opt.cursorline = true -- highlight current line
 vim.opt.wrap = false -- do not wrap lines by default
-vim.opt.scrolloff = 10 -- keep 10 lines above/below cursor
+vim.opt.scrolloff = 0 -- keep 0 lines above/below cursor
 vim.opt.sidescrolloff = 10 -- keep 10 lines to left/right of cursor
 
 vim.opt.tabstop = 2 -- tabwidth
@@ -115,8 +115,8 @@ vim.opt.clipboard:append("unnamedplus") -- use system clipboard
 vim.opt.modifiable = true -- allow buffer modifications
 vim.opt.encoding = "utf-8" -- set encoding
 
-vim.opt.guicursor =
-	"n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175" -- cursor blinking and settings
+--vim.opt.guicursor =
+--	"n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175" -- cursor blinking and settings
 
 -- Folding: requires treesitter available at runtime; safe fallback if not
 vim.opt.foldmethod = "expr" -- use expression for folding
@@ -466,8 +466,9 @@ vim.pack.add({
 		version = vim.version.range("1.*"),
 	},
 	"https://github.com/L3MON4D3/LuaSnip",
-    "https://github.com/rebelot/kanagawa.nvim",
-    "https://github.com/folke/which-key.nvim"
+  "https://github.com/rebelot/kanagawa.nvim",
+  "https://github.com/folke/which-key.nvim",
+  "https://github.com/christoomey/vim-tmux-navigator",
 })
 
 local function packadd(name)
@@ -883,7 +884,7 @@ do
 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
 
-	local flake8 = require("efmls-configs.linters.flake8")
+  -- local flake8 = require("efmls-configs.linters.flake8")
 	local black = require("efmls-configs.formatters.black")
 
 	local prettier_d = require("efmls-configs.formatters.prettier_d")
@@ -934,7 +935,7 @@ do
 				jsonc = { eslint_d, fixjson },
 				lua = { luacheck, stylua },
 				markdown = { prettier_d },
-				python = { flake8, black },
+				python = { black },
 				sh = { shellcheck, shfmt },
 				typescript = { eslint_d, prettier_d },
 				typescriptreact = { eslint_d, prettier_d },
@@ -1059,11 +1060,11 @@ vim.g.slimv_browser_cmd = "tmux new-window w3m"
 vim.g.slimv_lisp = 'ros run'
 vim.g.slimv_impl = 'sbcl'
 
-vim.api.nvim_create_autocmd("VimLeave", {
-  callback = function()
-    vim.opt.guicursor = ""
-    -- io.write("\27[1 q")  -- reset to terminal default cursor
-    io.write("\27]12;#cccccc\27\\")  -- match your Xresources cursorColor
-    io.flush()
-  end,
-})
+--vim.api.nvim_create_autocmd("VimLeave", {
+--  callback = function()
+--    vim.opt.guicursor = ""
+--    -- io.write("\27[1 q")  -- reset to terminal default cursor
+--    io.write("\27]12;#cccccc\27\\")  -- match your Xresources cursorColor
+--    io.flush()
+--  end,
+--})
