@@ -338,10 +338,11 @@ unset color_prompt force_color_prompt
       export pnightly=/home/files6/regressions/nightly/rundir
       export pweekly=/home/files6/regressions/weekly/rundir
       export prop=/home/files6/regressions/run_on_push/rundir
-      export propl=/home/files6/regressions/rop_long/rundir
+      export propl=/home/files6/regressions/history/rop_long
       export parch=/home/users/archive/deliveries
       export pflex=/home/users/flexcron/flexcron
       export phome=/home/files5/kenny
+      export phist=/home/files6/regressions/history/rop_long
 
       function ropsum { (cd $prop; ./tools/list_status.py --summary regression/run_on_push ); }
       function roprunning { (cd $prop; ./tools/list_status.py --running regression/run_on_push); }
@@ -354,6 +355,7 @@ unset color_prompt force_color_prompt
       function lniterunning { (cd $w; ./tools/list_status.py --running regression/nightly); }
 
       function running { (cd $w; ./tools/list_status.py --running $1 ); }
+      function fails   { (cd $w; ./tools/list_status.py --fails $1 ); }
       function summary { (cd $w; ./tools/list_status.py --summary $1 ); }
 
       function tcgrep {
@@ -368,6 +370,17 @@ unset color_prompt force_color_prompt
         fi
       }
 
+      function depends {
+        r=$1
+        egrep "^$2\b" ${r%.jobs}.jobs | \
+          sed -e 's/ --.*//' | \
+          awk '{printf "%s depends on:", $1; for(i=4;i<=NF;i++) printf " %s", $i; print ""}';
+      }
+
+      function failing {
+        r=$1
+        awk '/ -- \/bin\/true/ {print $1}' ${r%.jobs}.jobs 
+      }
 
       function memtop {
         date=`date +'%Y-%m-%d:%H:%M'`

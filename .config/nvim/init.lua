@@ -71,7 +71,7 @@ vim.opt.hlsearch = true -- highlight search matches
 vim.opt.incsearch = true -- show matches as you type
 
 vim.opt.signcolumn = "yes" -- always show a sign column
-vim.opt.colorcolumn = "100" -- show a column at 100 position chars
+--vim.opt.colorcolumn = "100" -- show a column at 100 position chars
 vim.opt.showmatch = true -- highlights matching brackets
 vim.opt.cmdheight = 1 -- single line command line
 vim.opt.completeopt = "menuone,noinsert,noselect" -- completion options
@@ -92,9 +92,9 @@ then
 	vim.fn.mkdir(undodir, "p")
 end
 
-vim.opt.backup = true -- do not create a backup file
-vim.opt.writebackup = false -- do not write to a backup file
-vim.opt.swapfile = true -- do not create a swapfile
+vim.opt.backup = false -- do not create a backup file
+vim.opt.writebackup = true -- do not write to a backup file
+vim.opt.swapfile = true -- do create a swapfile
 vim.opt.undofile = true -- do create an undo file
 vim.opt.undodir = undodir -- set the undo directory
 vim.opt.updatetime = 300 -- faster completion
@@ -350,60 +350,60 @@ end, { desc = "Buffer Local Keymaps (which-key)" })
 local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
 
 -- Format on save (ONLY real file buffers, ONLY when efm is attached)
-vim.api.nvim_create_autocmd("BufWritePre", {
-	group = augroup,
-	pattern = {
-		"*.lua",
-		"*.py",
-		"*.go",
-		"*.js",
-		"*.jsx",
-		"*.ts",
-		"*.tsx",
-		"*.json",
-		"*.css",
-		"*.scss",
-		"*.html",
-		"*.sh",
-		"*.bash",
-		"*.zsh",
-		"*.c",
-		"*.cpp",
-		"*.h",
-		"*.hpp",
-	},
-	callback = function(args)
-		-- avoid formatting non-file buffers (helps prevent weird write prompts)
-		if vim.bo[args.buf].buftype ~= "" then
-			return
-		end
-		if not vim.bo[args.buf].modifiable then
-			return
-		end
-		if vim.api.nvim_buf_get_name(args.buf) == "" then
-			return
-		end
-
-		local has_efm = false
-		for _, c in ipairs(vim.lsp.get_clients({ bufnr = args.buf })) do
-			if c.name == "efm" then
-				has_efm = true
-				break
-			end
-		end
-		if not has_efm then
-			return
-		end
-
-		pcall(vim.lsp.buf.format, {
-			bufnr = args.buf,
-			timeout_ms = 2000,
-			filter = function(c)
-				return c.name == "efm"
-			end,
-		})
-	end,
-})
+--vim.api.nvim_create_autocmd("BufWritePre", {
+--	group = augroup,
+--	pattern = {
+--		"*.lua",
+--		"*.py",
+--		"*.go",
+--		"*.js",
+--		"*.jsx",
+--		"*.ts",
+--		"*.tsx",
+--		"*.json",
+--		"*.css",
+--		"*.scss",
+--		"*.html",
+--		"*.sh",
+--		"*.bash",
+--		"*.zsh",
+--		"*.c",
+--		"*.cpp",
+--		"*.h",
+--		"*.hpp",
+--	},
+--	callback = function(args)
+--		-- avoid formatting non-file buffers (helps prevent weird write prompts)
+--		if vim.bo[args.buf].buftype ~= "" then
+--			return
+--		end
+--		if not vim.bo[args.buf].modifiable then
+--			return
+--		end
+--		if vim.api.nvim_buf_get_name(args.buf) == "" then
+--			return
+--		end
+--
+--		local has_efm = false
+--		for _, c in ipairs(vim.lsp.get_clients({ bufnr = args.buf })) do
+--			if c.name == "efm" then
+--				has_efm = true
+--				break
+--			end
+--		end
+--		if not has_efm then
+--			return
+--		end
+--
+--		pcall(vim.lsp.buf.format, {
+--			bufnr = args.buf,
+--			timeout_ms = 2000,
+--			filter = function(c)
+--				return c.name == "efm"
+--			end,
+--		})
+--	end,
+--})
 
 -- highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -561,6 +561,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
     vim.cmd([[
       hi StatusLine    guifg=#000000 guibg=#C8C093
       hi StatusLineNC  guifg=#000000 guibg=#606060
+      hi Search        guifg=#ffffff guibg=#9c4464
     ]])
   end,
 })
@@ -671,7 +672,7 @@ require("mini.surround").setup({})
 require("mini.cursorword").setup({})
 require("mini.indentscope").setup({})
 -- require("mini.pairs").setup({})
-require("mini.trailspace").setup({})
+--require("mini.trailspace").setup({})
 require("mini.bufremove").setup({})
 require("mini.notify").setup({})
 require("mini.icons").setup({})
@@ -924,9 +925,9 @@ do
 		init_options = { documentFormatting = true },
 		settings = {
 			languages = {
-				c = { clangfmt, cpplint },
+				c = { clangfmt },
 				go = { gofumpt, go_revive },
-				cpp = { clangfmt, cpplint },
+				cpp = { clangfmt },
 				css = { prettier_d },
 				html = { prettier_d },
 				javascript = { eslint_d, prettier_d },
