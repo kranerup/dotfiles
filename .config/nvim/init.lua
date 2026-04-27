@@ -85,18 +85,18 @@ vim.opt.lazyredraw = true -- do not redraw during macros
 vim.opt.synmaxcol = 300 -- syntax highlighting limit
 vim.opt.fillchars = { eob = " " } -- hide "~" on empty lines
 
-local undodir = vim.fn.expand("~/.vim/undodir")
-if
-	vim.fn.isdirectory(undodir) == 0 -- create undodir if nonexistent
-then
-	vim.fn.mkdir(undodir, "p")
-end
+--local undodir = vim.fn.expand("~/.vim/undodir")
+--if
+--	vim.fn.isdirectory(undodir) == 0 -- create undodir if nonexistent
+--then
+--	vim.fn.mkdir(undodir, "p")
+--end
 
 vim.opt.backup = false -- do not create a backup file
 vim.opt.writebackup = true -- do not write to a backup file
 vim.opt.swapfile = true -- do create a swapfile
 vim.opt.undofile = true -- do create an undo file
-vim.opt.undodir = undodir -- set the undo directory
+--vim.opt.undodir = undodir -- set the undo directory
 vim.opt.updatetime = 300 -- faster completion
 vim.opt.timeoutlen = 500 -- timeout duration
 vim.opt.ttimeoutlen = 0 -- key code timeout
