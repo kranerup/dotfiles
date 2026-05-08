@@ -562,6 +562,8 @@ vim.api.nvim_create_autocmd("UIEnter", {
       hi StatusLine    guifg=#000000 guibg=#C8C093
       hi StatusLineNC  guifg=#000000 guibg=#606060
       hi Search        guifg=#ffffff guibg=#9c4464
+      hi Comment       guifg=#FF5D62 gui=italic
+      hi MatchParen    guifg=#FF5D62 guibg=#545454 gui=bold
     ]])
   end,
 })
@@ -1069,3 +1071,9 @@ vim.g.slimv_impl = 'sbcl'
 --    io.flush()
 --  end,
 --})
+
+vim.keymap.set('n', '*', function()
+  vim.fn.setreg('/', '\\<' .. vim.fn.expand('<cword>') .. '\\>')
+  vim.opt.hlsearch = true
+end, { silent = true })
+
