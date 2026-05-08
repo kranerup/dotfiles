@@ -59,7 +59,7 @@ case "$-" in
       function xdot    { (export_disp; /usr/bin/xdot $*) }
       function gitk    { (export_disp; /usr/bin/gitk $*) }
       function gnuplot { (export_disp; /usr/bin/gnuplot $*) }
-      function gtkwave { (export_disp; /usr/local/bin/gtkwave $*) }
+      function gtkwave { (export_disp; gtkwave $*) }
       function evince  { (export_disp; /usr/bin/evince $*) }
 
       function notify { tmux new-window 'whiptail --msgbox "DONE" 7 9'; }
