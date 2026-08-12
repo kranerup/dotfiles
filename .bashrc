@@ -191,6 +191,27 @@ case "$-" in
       # super simple calculator
       function cx() { printf "0x%x\n" $(($*)); }
 
+      function latest_in() {
+        local dir="${1:-.}"
+        local newest="" entry
+
+        [[ -d "$dir" ]] || { printf 'not a directory: %s\n' "$dir" >&2; return 1; }
+
+        for entry in "$dir"/*; do
+            [[ -e "$entry" || -L "$entry" ]] || continue          # skip if glob didn't match
+            if [[ -z "$newest" || "$entry" -nt "$newest" ]]; then
+                newest="$entry"
+            fi
+        done
+
+        [[ -n "$newest" ]] || return 1                            # empty directory
+        printf '%s\n' "$newest"
+      }
+
+      function rop_long_latest {
+        local latest=$(latest_in $phist)
+        cd $latest
+      }
 
       PROMPT_COMMAND=chpwd
 
