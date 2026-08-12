@@ -8,6 +8,7 @@ export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
 #export LS_COLORS=$LS_COLORS:'ex=0;31:'
 export LS_COLORS='ex=0;31:ln=0;35'
 export PATH=/opt/bin:$PATH
+export PATH="$HOME/.npm-global/bin:$PATH"
 # this is to avoid any SE propagating from ssh if source OS was setting language
 export LC_ALL=en_US.UTF-8
 
@@ -60,8 +61,8 @@ case "$-" in
       function xdot    { (export_disp; /usr/bin/xdot $*) }
       function gitk    { (export_disp; /usr/bin/gitk $*) }
       function gnuplot { (export_disp; /usr/bin/gnuplot $*) }
-      function gtkwave { (export_disp; gtkwave $*) }
-      function evince  { (export_disp; /usr/bin/evince $*) }
+      #function gtkwave { (export_disp; /usr/local/bin/gtkwave $*) }
+      #function evince  { (export_disp; /usr/bin/evince $*) }
 
       function notify { tmux new-window 'whiptail --msgbox "DONE" 7 9'; }
       function withx { (export_disp; $*) }
