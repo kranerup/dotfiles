@@ -52,13 +52,29 @@ set_transparent()
 -- OPTIONS
 -- ============================================================================
 
+vim.opt.errorbells = false -- no error sounds
+vim.opt.autochdir = true -- do autochange directories
+vim.opt.clipboard:append("unnamedplus") -- use system clipboard
+
+vim.opt.wrap = false -- do not wrap lines by default
+vim.opt.tabstop = 2 -- tabwidth
+vim.opt.shiftwidth = 2 -- indent width
+vim.opt.softtabstop = 2 -- soft tab stop not tabs on tab/backspace
+vim.opt.expandtab = true -- use spaces instead of tabs
+vim.opt.smartindent = true -- smart auto-indent
+vim.opt.autoindent = true -- copy indent from current line
+
+vim.opt.ignorecase = true -- case insensitive search
+vim.opt.smartcase = true -- case sensitive if uppercase in string
+vim.opt.hlsearch = true -- highlight search matches
+vim.opt.incsearch = true -- show matches as you type
 -- ============================================================================
 -- PLUGINS (vim.pack)
 -- ============================================================================
 --
 --
 local function pack_add(name)
-	vim.cmd("packadd " .. name)
+	-- vim.cmd("packadd " .. name)
     vim.pack.add({ name })
 end
 
@@ -146,21 +162,86 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.keymap.set("n", "<leader>e", function()
       Snacks.explorer()
     end, { desc = "File Explorer" })
+    vim.keymap.set("n", "<leader>f", function()
+      Snacks.picker.files()
+    end)
     vim.keymap.set("n", "<leader>g", function()
       Snacks.picker.git_files()
     end, { desc = "File Explorer" })
+    vim.keymap.set("n", "<leader>b", function() Snacks.picker.buffers() end)
+    vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end)
 
-        --notifier = { enabled = true },
-        --quickfile = { enabled = true },
-        --scope = { enabled = true },
-        --scroll = { enabled = true },
-        --statuscolumn = { enabled = true },
-        --words = { enabled = true },
-        --bigfile = { enabled = true },
-        --dashboard = { enabled = true },
-        --indent = { enabled = true },
-        --input = { enabled = true },
-  end,
+    pack_add("https://github.com/kovisoft/slimv")
+    -- for slimv repl
+    vim.g.lisp_rainbow = 1
+    vim.g.paredit_mode = 0
+    vim.g.slimv_clhs_root = "file:/usr/share/doc/hyperspec/Body/"
+    vim.g.slimv_browser_cmd = "tmux new-window w3m"
+    vim.g.slimv_lisp = 'ros run'
+    vim.g.slimv_impl = 'sbcl'
+    vim.g.slimv_repl_split = 4
+
+    pack_add('https://github.com/hrsh7th/nvim-cmp')
+    pack_add('https://github.com/hrsh7th/cmp-buffer')
+    pack_add('https://github.com/hrsh7th/cmp-nvim-lsp')
+
+    local cmp = require('cmp')
+    cmp.setup({
+        snippet = {
+          -- REQUIRED - you must specify a snippet engine
+          expand = function(args)
+            vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+          end,
+        },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
+        mapping = cmp.mapping.preset.insert({
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        }),
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
+        })
+      })
+
+    cmp.setup.filetype("lisp", {
+      enabled = false,
+    })
+
+    -- ~/.config/nvim/lsp/jedi.lua  (or inline in init.lua)
+    vim.lsp.config('jedi', {
+      cmd = { 'jedi-language-server' },
+      filetypes = { 'python' },
+      root_markers = { 'pyproject.toml', 'setup.py', '.git' },
+      init_options = {
+        diagnostics = { enable = false },
+        completion  = { disableSnippets = true, resolveEagerly = false },
+        hover       = { enable = false },
+        jediSettings = { autoImportModules = {} },
+      },
+      on_attach = function(client, bufnr)
+        -- hard-disable anything the server still advertises
+        local caps = client.server_capabilities
+        caps.hoverProvider              = false
+        caps.signatureHelpProvider      = nil
+        caps.codeActionProvider         = false
+        caps.documentHighlightProvider  = false
+        caps.documentFormattingProvider = false
+        caps.renameProvider             = false
+        caps.inlayHintProvider          = nil
+
+        vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = false })
+      end,
+    })
+    vim.lsp.enable('jedi')
+
+    end
 })
 --
 --
@@ -210,6 +291,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
       hi Search        guifg=#ffffff guibg=#9c4464
       hi Comment       guifg=#FF5D62 gui=italic
       hi MatchParen    guifg=#FF5D62 guibg=#545454 gui=bold
+      hi WinSeparator  guibg=#303030 guifg=#808080
     ]])
   end,
 })
@@ -220,13 +302,6 @@ vim.api.nvim_create_autocmd("UIEnter", {
 -- ============================================================================
 require('less-mode').setup()
 
--- for slimv repl
-vim.g.lisp_rainbow = 1
-vim.g.paredit_mode = 0
-vim.g.slimv_clhs_root = "file:/usr/share/doc/hyperspec/Body/"
-vim.g.slimv_browser_cmd = "tmux new-window w3m"
-vim.g.slimv_lisp = 'ros run'
-vim.g.slimv_impl = 'sbcl'
 
 --vim.api.nvim_create_autocmd("VimLeave", {
 --  callback = function()
