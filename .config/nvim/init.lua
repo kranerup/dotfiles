@@ -69,86 +69,99 @@ vim.opt.smartcase = true -- case sensitive if uppercase in string
 vim.opt.hlsearch = true -- highlight search matches
 vim.opt.incsearch = true -- show matches as you type
 -- ============================================================================
--- PLUGINS (vim.pack)
--- ============================================================================
---
---
+vim.api.nvim_create_autocmd('ColorScheme', {
+  group = vim.api.nvim_create_augroup('my_hl_overrides', { clear = true }),
+  callback = function()
+    vim.api.nvim_set_hl(0, 'Search',       { fg = '#ffffff', bg = '#9c4464' })
+    vim.api.nvim_set_hl(0, 'Comment',      { fg = '#FF5D62', italic = true })
+    vim.api.nvim_set_hl(0, 'MatchParen',   { fg = '#FF5D62', bg = '#545454', bold = true })
+    vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#808080', bg = '#303030' })
+  end,
+})
+
 local function pack_add(name)
 	-- vim.cmd("packadd " .. name)
     vim.pack.add({ name })
 end
 
+pack_add("https://github.com/rebelot/kanagawa.nvim")
+require("kanagawa").setup({
+    -- Replace this with your scheme-specific settings or remove to use the defaults
+    -- transparent = true,
+    background = {
+        -- light = "lotus",
+        dark = "wave", -- "wave, dragon"
+    },
+    colors = {
+        palette = {
+            -- Background colors
+            sumiInk0 = "#161616", -- modified
+            sumiInk1 = "#181818", -- modified
+            sumiInk2 = "#1a1a1a", -- modified
+            sumiInk3 = "#000000", -- #1F1F1F", -- modified
+            sumiInk4 = "#2A2A2A", -- modified
+            sumiInk5 = "#363636", -- modified
+            sumiInk6 = "#545454", -- modified
+
+            -- Popup and Floats
+            waveBlue1 = "#322C47", -- modified
+            waveBlue2 = "#4c4464", -- modified
+
+            -- Diff and Git
+            winterGreen = "#2B3328",
+            winterYellow = "#49443C",
+            winterRed = "#43242B",
+            winterBlue = "#252535",
+            autumnGreen = "#76A56A", -- modified
+            autumnRed = "#C34043",
+            autumnYellow = "#DCA561",
+
+            -- Diag
+            samuraiRed = "#E82424",
+            roninYellow = "#FF9E3B",
+            waveAqua1 = "#7E9CD8", -- modified
+            dragonBlue = "#7FB4CA", -- modified
+
+            -- Foreground and Comments
+            oldWhite = "#C8C093",
+            --fujiWhite = "#F9E7C0", -- modified
+            fujiWhite = "#FFFFFF", -- modified
+            fujiGray = "#727169",
+            oniViolet = "#BFA3E6", -- modified
+            oniViolet2 = "#BCACDB", -- modified
+            crystalBlue = "#8CABFF", -- modified
+            springViolet1 = "#938AA9",
+            springViolet2 = "#9CABCA",
+            springBlue = "#7FC4EF", -- modified
+            waveAqua2 = "#77BBDD", -- modified
+
+            springGreen = "#98BB6C",
+            boatYellow1 = "#938056",
+            boatYellow2 = "#C0A36E",
+            carpYellow = "#FFEE99", -- modified
+
+            sakuraPink = "#D27E99",
+            waveRed = "#E46876",
+            peachRed = "#FF5D62",
+            surimiOrange = "#FFAA44", -- modified
+            katanaGray = "#717C7C",
+        },
+    },
+})
+
+vim.opt.background = "dark"
+vim.cmd.colorscheme("kanagawa")
+
+--
+--
+-- ============================================================================
+-- PLUGINS (vim.pack)
+-- ============================================================================
+--
+--
 vim.api.nvim_create_autocmd("VimEnter", {
   once = true,
   callback = function()
-    pack_add("https://github.com/rebelot/kanagawa.nvim")
-    -- ============================================================================
-    require("kanagawa").setup({
-        -- Replace this with your scheme-specific settings or remove to use the defaults
-        -- transparent = true,
-        background = {
-            -- light = "lotus",
-            dark = "wave", -- "wave, dragon"
-        },
-        colors = {
-            palette = {
-                -- Background colors
-                sumiInk0 = "#161616", -- modified
-                sumiInk1 = "#181818", -- modified
-                sumiInk2 = "#1a1a1a", -- modified
-                sumiInk3 = "#000000", -- #1F1F1F", -- modified
-                sumiInk4 = "#2A2A2A", -- modified
-                sumiInk5 = "#363636", -- modified
-                sumiInk6 = "#545454", -- modified
-
-                -- Popup and Floats
-                waveBlue1 = "#322C47", -- modified
-                waveBlue2 = "#4c4464", -- modified
-
-                -- Diff and Git
-                winterGreen = "#2B3328",
-                winterYellow = "#49443C",
-                winterRed = "#43242B",
-                winterBlue = "#252535",
-                autumnGreen = "#76A56A", -- modified
-                autumnRed = "#C34043",
-                autumnYellow = "#DCA561",
-
-                -- Diag
-                samuraiRed = "#E82424",
-                roninYellow = "#FF9E3B",
-                waveAqua1 = "#7E9CD8", -- modified
-                dragonBlue = "#7FB4CA", -- modified
-
-                -- Foreground and Comments
-                oldWhite = "#C8C093",
-                --fujiWhite = "#F9E7C0", -- modified
-                fujiWhite = "#FFFFFF", -- modified
-                fujiGray = "#727169",
-                oniViolet = "#BFA3E6", -- modified
-                oniViolet2 = "#BCACDB", -- modified
-                crystalBlue = "#8CABFF", -- modified
-                springViolet1 = "#938AA9",
-                springViolet2 = "#9CABCA",
-                springBlue = "#7FC4EF", -- modified
-                waveAqua2 = "#77BBDD", -- modified
-
-                springGreen = "#98BB6C",
-                boatYellow1 = "#938056",
-                boatYellow2 = "#C0A36E",
-                carpYellow = "#FFEE99", -- modified
-
-                sakuraPink = "#D27E99",
-                waveRed = "#E46876",
-                peachRed = "#FF5D62",
-                surimiOrange = "#FFAA44", -- modified
-                katanaGray = "#717C7C",
-            },
-        },
-    })
-
-    vim.cmd.colorscheme("kanagawa")
-
     pack_add("https://github.com/christoomey/vim-tmux-navigator")
 
 
@@ -214,6 +227,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
       enabled = false,
     })
 
+    -- ********* python lsp jedi *******************************
     -- ~/.config/nvim/lsp/jedi.lua  (or inline in init.lua)
     vim.lsp.config('jedi', {
       cmd = { 'jedi-language-server' },
@@ -241,11 +255,61 @@ vim.api.nvim_create_autocmd("VimEnter", {
     })
     vim.lsp.enable('jedi')
 
+    -- ********* C lsp clangd *********************
+    -- see :h lsp-defaults
+    -- ~/.config/nvim/lsp/clangd.lua
+    vim.lsp.config('clangd', {
+      cmd = {
+        'clangd',
+        '--background-index',
+        '--clang-tidy=false',
+        '--header-insertion=never',
+        '--completion-style=detailed',
+        '-j=8',
+      },
+      filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+      root_dir = function(bufnr, on_dir)
+        local root = vim.fs.root(bufnr, { 'compile_commands.json', 'build/compile_commands.json' })
+        if root then
+          on_dir(root)
+        end
+        -- no call → clangd never starts for this buffer
+      end,
+    })
+    vim.lsp.enable('clangd')
+
+    -- ********** status line ************
+    pack_add("https://github.com/nvim-tree/nvim-web-devicons")-- fancy icons
+    pack_add("https://github.com/linrongbin16/lsp-progress.nvim") -- LSP loading progress
+    pack_add("https://github.com/nvim-lualine/lualine.nvim")
+    require("lualine").setup({
+        options = {
+          -- For more themes, see https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
+          theme = "papercolor_light", -- "auto, tokyonight, catppuccin, codedark, nord" 
+        },
+        sections = {
+          lualine_c = {
+            {
+              -- Customize the filename part of lualine to be parent/filename
+              'filename',
+              file_status = true,      -- Displays file status (readonly status, modified status)
+              newfile_status = false,  -- Display new file status (new file means no write after created)
+              path = 4,                -- 0: Just the filename
+                                       -- 1: Relative path
+                                       -- 2: Absolute path
+                                       -- 3: Absolute path, with tilde as the home directory
+                                       -- 4: Filename and parent dir, with tilde as the home directory
+              symbols = {
+                modified = '[+]',      -- Text to show when the file is modified.
+                readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
+              }
+            }
+          }
+        }
+      })
     end
 })
---
---
--- 
+
 vim.pack.add({
 	--"https://www.github.com/lewis6991/gitsigns.nvim",
 	--"https://www.github.com/echasnovski/mini.nvim",
@@ -280,37 +344,10 @@ vim.pack.add({
 --packadd("blink.cmp")
 --packadd("LuaSnip")
 
-vim.api.nvim_create_autocmd("UIEnter", {
-  once = true,
-  callback = function()
-    vim.opt.background = "dark"
-    vim.cmd.colorscheme("kanagawa")
-    vim.cmd([[
-      hi StatusLine    guifg=#000000 guibg=#C8C093
-      hi StatusLineNC  guifg=#000000 guibg=#606060
-      hi Search        guifg=#ffffff guibg=#9c4464
-      hi Comment       guifg=#FF5D62 gui=italic
-      hi MatchParen    guifg=#FF5D62 guibg=#545454 gui=bold
-      hi WinSeparator  guibg=#303030 guifg=#808080
-    ]])
-  end,
-})
 
-
--- ============================================================================
--- My own customizations
 -- ============================================================================
 require('less-mode').setup()
 
-
---vim.api.nvim_create_autocmd("VimLeave", {
---  callback = function()
---    vim.opt.guicursor = ""
---    -- io.write("\27[1 q")  -- reset to terminal default cursor
---    io.write("\27]12;#cccccc\27\\")  -- match your Xresources cursorColor
---    io.flush()
---  end,
---})
 
 vim.keymap.set('n', '*', function()
   vim.fn.setreg('/', '\\<' .. vim.fn.expand('<cword>') .. '\\>')
