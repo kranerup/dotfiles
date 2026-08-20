@@ -79,12 +79,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   end,
 })
 
-local function pack_add(name)
-	-- vim.cmd("packadd " .. name)
-    vim.pack.add({ name })
-end
-
-pack_add("https://github.com/rebelot/kanagawa.nvim")
+vim.pack.add({"https://github.com/rebelot/kanagawa.nvim"})
 require("kanagawa").setup({
     -- Replace this with your scheme-specific settings or remove to use the defaults
     -- transparent = true,
@@ -162,10 +157,10 @@ vim.cmd.colorscheme("kanagawa")
 vim.api.nvim_create_autocmd("VimEnter", {
   once = true,
   callback = function()
-    pack_add("https://github.com/christoomey/vim-tmux-navigator")
+    vim.pack.add({"https://github.com/christoomey/vim-tmux-navigator"})
 
 
-    pack_add("https://github.com/folke/snacks.nvim")
+    vim.pack.add({"https://github.com/folke/snacks.nvim"})
     require("snacks").setup({
         picker = { enabled = true },
         explorer = { enabled = true,
@@ -184,7 +179,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.keymap.set("n", "<leader>b", function() Snacks.picker.buffers() end)
     vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end)
 
-    pack_add("https://github.com/kovisoft/slimv")
+    vim.pack.add({"https://github.com/kovisoft/slimv"})
     -- for slimv repl
     vim.g.lisp_rainbow = 1
     vim.g.paredit_mode = 0
@@ -194,39 +189,76 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.g.slimv_impl = 'sbcl'
     vim.g.slimv_repl_split = 4
 
-    pack_add('https://github.com/hrsh7th/nvim-cmp')
-    pack_add('https://github.com/hrsh7th/cmp-buffer')
-    pack_add('https://github.com/hrsh7th/cmp-nvim-lsp')
+    -- ********* completion nvim-cmp *******************************
+    --vim.pack.add({'https://github.com/hrsh7th/nvim-cmp'})
+    --vim.pack.add({'https://github.com/hrsh7th/cmp-buffer'})
+    --vim.pack.add({'https://github.com/hrsh7th/cmp-nvim-lsp'})
 
-    local cmp = require('cmp')
-    cmp.setup({
-        snippet = {
-          -- REQUIRED - you must specify a snippet engine
-          expand = function(args)
-            vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
-          end,
-        },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        }),
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'buffer' },
-        })
-      })
+    --local cmp = require('cmp')
+    --cmp.setup({
+    --    snippet = {
+    --      -- REQUIRED - you must specify a snippet engine
+    --      expand = function(args)
+    --        vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+    --      end,
+    --    },
+    --    window = {
+    --      completion = cmp.config.window.bordered(),
+    --      documentation = cmp.config.window.bordered(),
+    --    },
+    --    mapping = cmp.mapping.preset.insert({
+    --      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    --      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    --      ['<C-Space>'] = cmp.mapping.complete(),
+    --      ['<C-e>'] = cmp.mapping.abort(),
+    --      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    --    }),
+    --    sources = cmp.config.sources({
+    --      { name = 'nvim_lsp' },
+    --      { name = 'buffer' },
+    --    })
+    --  })
 
-    cmp.setup.filetype("lisp", {
-      enabled = false,
+    --cmp.setup.filetype("lisp", {
+    --  enabled = false,
+    --})
+
+    -- ********* blink completion *******************************
+    vim.pack.add({"https://github.com/saghen/frizbee"})
+	vim.pack.add({"https://github.com/saghen/blink.cmp"})
+	vim.pack.add({"https://github.com/L3MON4D3/LuaSnip"})
+
+    require("blink.cmp").setup({
+        keymap = {
+            preset = 'default',
+            -- ["<C-Space>"] = { "show", "hide" },
+            ["<CR>"]      = { "accept", "fallback" },
+            ["<C-y>"] = { 'show', 'show_documentation', 'hide_documentation' },
+            -- ["<C-j>"]     = { "select_next", "fallback" },
+            -- ["<C-k>"]     = { "select_prev", "fallback" },
+            -- ["<Tab>"]     = { "snippet_forward", "fallback" },
+            -- ["<S-Tab>"]   = { "snippet_backward", "fallback" },
+        },
+        appearance = { nerd_font_variant = "mono" },
+        completion = { menu = { auto_show = true } },
+        sources = { default = { "lsp", "path", "buffer", "snippets" } },
+        snippets = {
+            expand = function(snippet)
+                require("luasnip").lsp_expand(snippet)
+            end,
+        },
+
+        fuzzy = {
+            implementation = "prefer_rust",
+            prebuilt_binaries = { download = true },
+        },
     })
 
+    vim.lsp.config["*"] = {
+        capabilities = require("blink.cmp").get_lsp_capabilities(),
+    }
+
+    --
     -- ********* python lsp jedi *******************************
     -- ~/.config/nvim/lsp/jedi.lua  (or inline in init.lua)
     vim.lsp.config('jedi', {
@@ -279,9 +311,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.lsp.enable('clangd')
 
     -- ********** status line ************
-    pack_add("https://github.com/nvim-tree/nvim-web-devicons")-- fancy icons
-    pack_add("https://github.com/linrongbin16/lsp-progress.nvim") -- LSP loading progress
-    pack_add("https://github.com/nvim-lualine/lualine.nvim")
+    vim.pack.add({"https://github.com/nvim-tree/nvim-web-devicons"})-- fancy icons
+    vim.pack.add({"https://github.com/linrongbin16/lsp-progress.nvim"}) -- LSP loading progress
+    vim.pack.add({"https://github.com/nvim-lualine/lualine.nvim"})
     require("lualine").setup({
         options = {
           -- For more themes, see https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
