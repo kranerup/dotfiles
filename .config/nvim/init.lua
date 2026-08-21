@@ -224,9 +224,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
     --})
 
     -- ********* blink completion *******************************
-    vim.pack.add({"https://github.com/saghen/frizbee"})
-	vim.pack.add({"https://github.com/saghen/blink.cmp"})
 	vim.pack.add({"https://github.com/L3MON4D3/LuaSnip"})
+    vim.pack.add({ "https://github.com/saghen/blink.lib" })
+    vim.pack.add({ "https://github.com/saghen/blink.cmp" })
 
     require("blink.cmp").setup({
         keymap = {
@@ -242,16 +242,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
         appearance = { nerd_font_variant = "mono" },
         completion = { menu = { auto_show = true } },
         sources = { default = { "lsp", "path", "buffer", "snippets" } },
+        signature = { enabled = true },
         snippets = {
             expand = function(snippet)
                 require("luasnip").lsp_expand(snippet)
             end,
         },
-
-        fuzzy = {
-            implementation = "prefer_rust",
-            prebuilt_binaries = { download = true },
-        },
+        fuzzy = { implementation = "lua" }
     })
 
     vim.lsp.config["*"] = {
