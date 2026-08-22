@@ -2,14 +2,14 @@ export EDITOR=vim
 export LESS='R'
 export GOPATH=$HOME/lib/go
 export PATH=$GOPATH/bin:$HOME/afs/nvim-linux64/bin:$HOME/nvim-linux64/bin:$HOME/bin:$PATH
-export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
+export PATH="/optpa/nvim-linux-x86_64/bin:$PATH"
+export PATH=/opt/bin:$PATH
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 #export LS_COLORS=$LS_COLORS:'ex=0;31:'
 export LS_COLORS='ex=0;31:ln=0;35'
-export PATH=/opt/bin:$PATH
-export PATH="$HOME/.npm-global/bin:$PATH"
-export PATH=/opt/nvim-linux-x86_64/bin:$PATH
+
 # this is to avoid any SE propagating from ssh if source OS was setting language
 export LC_ALL=en_US.UTF-8
 
