@@ -232,10 +232,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
         keymap = {
             preset = 'default',
             -- ["<C-Space>"] = { "show", "hide" },
-            ["<CR>"]      = { "accept", "fallback" },
+            ["<Tab>"]      = { "accept", "fallback" },
             ["<C-y>"] = { 'show', 'show_documentation', 'hide_documentation' },
-            -- ["<C-j>"]     = { "select_next", "fallback" },
-            -- ["<C-k>"]     = { "select_prev", "fallback" },
+            ["<C-j>"]     = { "select_next", "fallback" },
+            ["<C-k>"]     = { "select_prev", "fallback" },
             -- ["<Tab>"]     = { "snippet_forward", "fallback" },
             -- ["<S-Tab>"]   = { "snippet_backward", "fallback" },
         },
