@@ -6,6 +6,7 @@ export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
 export PATH="/optpa/nvim-linux-x86_64/bin:$PATH"
 export PATH=/opt/bin:$PATH
 export PATH="$HOME/.npm-global/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 #export LS_COLORS=$LS_COLORS:'ex=0;31:'
 export LS_COLORS='ex=0;31:ln=0;35'
