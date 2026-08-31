@@ -213,7 +213,7 @@ case "$-" in
 
       function rop_long_latest {
         local latest=$(latest_in $phist)
-        cd $latest
+        echo $latest
       }
 
       PROMPT_COMMAND=chpwd
