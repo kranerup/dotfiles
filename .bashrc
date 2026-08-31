@@ -412,6 +412,33 @@ unset color_prompt force_color_prompt
         ps ux |head -1
         ps auxw --sort rss | tail -n 7 | tac
       }
+
+      function printline  { 
+        local spec="$1";
+        local file="${spec%:*}";
+        local line="${spec##*:}";
+        if [[ ! "$line" =~ ^[0-9]+$ ]]; then
+            printf 'printline: invalid spec: %s\n' "$spec" 1>&2;
+            return 1;
+        fi;
+        if [[ ! -r "$file" ]]; then
+            printf 'printline: cannot read: %s\n' "$file" 1>&2;
+            return 1;
+        fi;
+        sed -n "${line}{p;q;}" -- "$file"
+      }
+      function editline { 
+        local spec="$1";
+        local file="${spec%:*}";
+        local line="${spec##*:}";
+        if [[ ! "$line" =~ ^[0-9]+$ ]]; then
+            printf 'editline: invalid spec: %s\n' "$spec" 1>&2;
+            return 1;
+        fi;
+        nvim "+${line}" -- "$file"
+      }
+ 
+
       # blinking bar cursor
       #echo -e -n "\x1b[\x35 q"
       ;;
