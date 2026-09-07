@@ -314,6 +314,11 @@ vim.api.nvim_create_autocmd("VimEnter", {
     -- :Gdiffsplit! (after 0Gclog)
     vim.pack.add({ "https://github.com/tpope/vim-fugitive", })
 
+
+    -- ********** table in markdown ************
+    vim.pack.add({"https://github.com/Kicamon/markdown-table-mode.nvim",})
+    require('markdown-table-mode').setup()
+
     -- ********** status line ************
     vim.pack.add({"https://github.com/nvim-tree/nvim-web-devicons"})-- fancy icons
     vim.pack.add({"https://github.com/linrongbin16/lsp-progress.nvim"}) -- LSP loading progress
