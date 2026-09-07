@@ -307,6 +307,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
     })
     vim.lsp.enable('clangd')
 
+    -- ********** Fuguitive git mode ***************
+    -- :Git blame
+    -- :0Gclog   'C' for viewing diff
+    -- :Gclog -- %
+    -- :Gdiffsplit! (after 0Gclog)
+    vim.pack.add({ "https://github.com/tpope/vim-fugitive", })
+
     -- ********** status line ************
     vim.pack.add({"https://github.com/nvim-tree/nvim-web-devicons"})-- fancy icons
     vim.pack.add({"https://github.com/linrongbin16/lsp-progress.nvim"}) -- LSP loading progress
