@@ -469,7 +469,6 @@ case ":$PATH:" in
         export PATH=$HOME/.juliaup/bin${PATH:+:${PATH}}
         ;;
 esac
-
 # <<< juliaup initialize <<<
 
 # ------------------------------------------------------

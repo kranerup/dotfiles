@@ -12,7 +12,8 @@ URxvt.reverseVideo:      false
 urxvt.scrollBar: False
 URxvt.borderLess: false
 URxvt.override-redirect: false
-
+URxvt.visualBell:   true
+URxvt.urgentOnBell: false
 
 
 ! Force cursor size for urxvt
