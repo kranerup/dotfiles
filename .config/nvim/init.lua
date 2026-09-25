@@ -191,6 +191,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     vim.pack.add({"https://github.com/christoomey/vim-tmux-navigator"})
 
+    vim.pack.add({"https://github.com/AndrewRadev/linediff.vim"})
 
     vim.pack.add({"https://github.com/folke/snacks.nvim"})
     require("snacks").setup({

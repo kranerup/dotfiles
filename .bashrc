@@ -69,6 +69,7 @@ case "$-" in
       function notify { tmux new-window 'whiptail --msgbox "DONE" 7 9'; }
       function withx { (export_disp; $*) }
       function withtools { (source $w/tools/tool-config.sh; $*;) }
+      function w { (source $w/tools/tool-config.sh; $*;) }
       function tssh { ssh -R/tmp/tmux-$UID/default:/tmp/tmux-${UID}/default $*; }
       # the job run.log file
       function llogn () { 
@@ -463,14 +464,13 @@ PERL_MM_OPT="INSTALL_BASE=/home/users/kenny/perl5"; export PERL_MM_OPT;
 # !! Contents within this block are managed by juliaup !!
 
 case ":$PATH:" in
-    *:$HOME/.juliaup/bin:*)
+    *:/home/users/kenny/.juliaup/bin:*)
         ;;
 
     *)
-        export PATH=$HOME/.juliaup/bin${PATH:+:${PATH}}
+        export PATH=/home/users/kenny/.juliaup/bin${PATH:+:${PATH}}
         ;;
 esac
-# <<< juliaup initialize <<<
 
 # ------------------------------------------------------
 # Manage various dot files in a github repo
