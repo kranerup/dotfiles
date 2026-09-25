@@ -68,7 +68,34 @@ vim.opt.ignorecase = true -- case insensitive search
 vim.opt.smartcase = true -- case sensitive if uppercase in string
 vim.opt.hlsearch = true -- highlight search matches
 vim.opt.incsearch = true -- show matches as you type
+
+vim.g.tex_no_error = 1
 -- ============================================================================
+--
+local function set_diff_highlights()
+  local colors = vim.o.background == "dark" and {
+    DiffAdd    = "#2e4b2e",
+    DiffDelete = "#4c1e15",
+    DiffChange = "#45565c",
+    DiffText   = "#996d74",
+  } or {
+    DiffAdd    = "palegreen",
+    DiffDelete = "tomato",
+    DiffChange = "lightblue",
+    DiffText   = "lightpink",
+  }
+  for group, bg in pairs(colors) do
+    vim.api.nvim_set_hl(0, group, { bold = true, fg = "NONE", bg = bg })
+  end
+end
+
+--vim.api.nvim_create_autocmd("ColorScheme", {
+--  group = vim.api.nvim_create_augroup("diffcolors", { clear = true }),
+--  pattern = "*",
+--  callback = set_diff_highlights,
+--})
+--
+--
 vim.api.nvim_create_autocmd('ColorScheme', {
   group = vim.api.nvim_create_augroup('my_hl_overrides', { clear = true }),
   callback = function()
@@ -76,6 +103,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.api.nvim_set_hl(0, 'Comment',      { fg = '#FF5D62', italic = true })
     vim.api.nvim_set_hl(0, 'MatchParen',   { fg = '#FF5D62', bg = '#545454', bold = true })
     vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#808080', bg = '#303030' })
+    set_diff_highlights()
   end,
 })
 
@@ -144,8 +172,12 @@ require("kanagawa").setup({
     },
 })
 
-vim.opt.background = "dark"
-vim.cmd.colorscheme("kanagawa")
+if vim.o.diff then
+  vim.cmd.colorscheme("delek")
+else
+  vim.opt.background = "dark"
+  vim.cmd.colorscheme("kanagawa")
+end
 
 --
 --
@@ -395,3 +427,6 @@ vim.keymap.set('n', '*', function()
   vim.opt.hlsearch = true
 end, { silent = true })
 
+
+
+-- ============================================================================
