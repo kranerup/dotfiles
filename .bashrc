@@ -1,4 +1,4 @@
-export EDITOR=vim
+export EDITOR=nvim
 export LESS='R'
 export GOPATH=$HOME/lib/go
 export PATH=$GOPATH/bin:$HOME/afs/nvim-linux64/bin:$HOME/nvim-linux64/bin:$HOME/bin:$PATH
