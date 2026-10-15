@@ -246,13 +246,18 @@ case "$-" in
         color_prompt=
           fi
       fi
-
-      if [ "$color_prompt" = yes ]; then
-          PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w [$?] \[\033[00m\]>'
+      if ((BWRAP_CLAUDE)); then
+        prompt_bwrap="[BWRAP] "
       else
-          PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w [$?] >'
+        prompt_bwrap=''
       fi
-unset color_prompt force_color_prompt
+      if [ "$color_prompt" = yes ]; then
+          PS1='${prompt_bwrap}${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w [$?] \[\033[00m\]>'
+      else
+          PS1='${prompt_bwrap}${debian_chroot:+($debian_chroot)}\u@\h:\w [$?] >'
+      fi
+      unset color_prompt force_color_prompt
+
       PAC3_REPO=/home/users/kenny/repos/comp
       PAC3_PP=/home/users/kenny/repos/dfgsim/tools/python3/lib/python3.5/site-packages
       function pac3 { withtools pypy3 $w/pac3/pac3.py $* >LOG && egrep Warning LOG ; }
@@ -452,6 +457,8 @@ if [[ "$HOSTNAME" == *ThinkPad* ]]; then
   export QT_SCREEN_SCALE_FACTORS=1.6
 fi
 
+# tmux mouse doesn't work when claude is running the same window
+export CLAUDE_CODE_DISABLE_MOUSE_CLICKS=1
 
 PATH="/home/users/kenny/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/users/kenny/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;

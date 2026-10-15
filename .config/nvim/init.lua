@@ -356,31 +356,64 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.pack.add({"https://github.com/nvim-tree/nvim-web-devicons"})-- fancy icons
     vim.pack.add({"https://github.com/linrongbin16/lsp-progress.nvim"}) -- LSP loading progress
     vim.pack.add({"https://github.com/nvim-lualine/lualine.nvim"})
+    --require("lualine").setup({
+    --    options = {
+    --      -- For more themes, see https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
+    --      theme = "papercolor_light", -- "auto, tokyonight, catppuccin, codedark, nord" 
+    --    },
+    --    sections = {
+    --      lualine_c = {
+    --        {
+    --          -- Customize the filename part of lualine to be parent/filename
+    --          'filename',
+    --          file_status = true,      -- Displays file status (readonly status, modified status)
+    --          newfile_status = false,  -- Display new file status (new file means no write after created)
+    --          path = 4,                -- 0: Just the filename
+    --                                   -- 1: Relative path
+    --                                   -- 2: Absolute path
+    --                                   -- 3: Absolute path, with tilde as the home directory
+    --                                   -- 4: Filename and parent dir, with tilde as the home directory
+    --          symbols = {
+    --            modified = '[+]',      -- Text to show when the file is modified.
+    --            readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
+    --          }
+    --        }
+    --      }
+    --    }
+    --  })
+    -- Label fugitive merge-stage buffers (//2 = ours, //3 = theirs).
+    local function merge_stage()
+      local win = vim.g.statusline_winid or 0
+      local name = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
+      if name:find("//2/", 1, true) then
+        return "OURS (HEAD)"
+      elseif name:find("//3/", 1, true) then
+        return "THEIRS (MERGE_HEAD)"
+      end
+      return ""
+    end
+    
+    local filename = {
+      "filename",
+      file_status = true,
+      newfile_status = false,
+      path = 4,
+      symbols = { modified = "[+]", readonly = "[-]" },
+    }
+    
     require("lualine").setup({
-        options = {
-          -- For more themes, see https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
-          theme = "papercolor_light", -- "auto, tokyonight, catppuccin, codedark, nord" 
-        },
-        sections = {
-          lualine_c = {
-            {
-              -- Customize the filename part of lualine to be parent/filename
-              'filename',
-              file_status = true,      -- Displays file status (readonly status, modified status)
-              newfile_status = false,  -- Display new file status (new file means no write after created)
-              path = 4,                -- 0: Just the filename
-                                       -- 1: Relative path
-                                       -- 2: Absolute path
-                                       -- 3: Absolute path, with tilde as the home directory
-                                       -- 4: Filename and parent dir, with tilde as the home directory
-              symbols = {
-                modified = '[+]',      -- Text to show when the file is modified.
-                readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
-              }
-            }
-          }
-        }
-      })
+      options = {
+        theme = "papercolor_light",
+      },
+      sections = {
+        lualine_c = { merge_stage, filename },
+      },
+      inactive_sections = {
+        lualine_c = { merge_stage, filename },
+        lualine_x = { "location" },  -- lualine's default for inactive windows
+      },
+    })
+
     end
 })
 
@@ -422,12 +455,21 @@ vim.pack.add({
 -- ============================================================================
 require('less-mode').setup()
 
-
 vim.keymap.set('n', '*', function()
   vim.fn.setreg('/', '\\<' .. vim.fn.expand('<cword>') .. '\\>')
   vim.opt.hlsearch = true
 end, { silent = true })
 
-
-
+-- ============================================================================
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = "fugitive://*",
+  callback = function()
+    local name = vim.api.nvim_buf_get_name(0)
+    local label = (name:find("//2/", 1, true) and "OURS (HEAD)")
+      or (name:find("//3/", 1, true) and "THEIRS (MERGE_HEAD)")
+    if label then
+      vim.opt_local.winbar = label
+    end
+  end,
+})
 -- ============================================================================
