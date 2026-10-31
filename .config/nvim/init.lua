@@ -24,6 +24,20 @@ end
 
 vim.opt.termguicolors = true
 
+if not vim.env.TMUX then
+  local swank = vim.fn.stdpath("data") .. "/site/pack/core/opt/slimv/slime/start-swank.lisp"
+  vim.g.slimv_swank_cmd = "! konsole -e sbcl --load " .. swank .. " &"
+end
+
+vim.pack.add({"https://github.com/kovisoft/slimv"})
+-- for slimv repl
+vim.g.lisp_rainbow = 1
+vim.g.paredit_mode = 0
+vim.g.slimv_clhs_root = "file:/usr/share/doc/hyperspec/Body/"
+vim.g.slimv_browser_cmd = "tmux new-window w3m"
+--vim.g.slimv_lisp = 'ros run'
+vim.g.slimv_impl = 'sbcl'
+vim.g.slimv_repl_split = 4
 
 local function set_transparent() -- set UI component to transparent
 	local groups = {
@@ -212,15 +226,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.keymap.set("n", "<leader>b", function() Snacks.picker.buffers() end)
     vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end)
 
-    vim.pack.add({"https://github.com/kovisoft/slimv"})
-    -- for slimv repl
-    vim.g.lisp_rainbow = 1
-    vim.g.paredit_mode = 0
-    vim.g.slimv_clhs_root = "file:/usr/share/doc/hyperspec/Body/"
-    vim.g.slimv_browser_cmd = "tmux new-window w3m"
-    vim.g.slimv_lisp = 'ros run'
-    vim.g.slimv_impl = 'sbcl'
-    vim.g.slimv_repl_split = 4
 
     -- ********* completion nvim-cmp *******************************
     --vim.pack.add({'https://github.com/hrsh7th/nvim-cmp'})
