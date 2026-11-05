@@ -15,6 +15,10 @@ URxvt.override-redirect: false
 URxvt.visualBell:   true
 URxvt.urgentOnBell: false
 
+! avoid the annoying Shift+Ctrl mode
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
 
 ! Force cursor size for urxvt
 URxvt*pointerShape: left_ptr
